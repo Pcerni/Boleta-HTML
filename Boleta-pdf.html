@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        /* tamaño boleta */
+        
+        @page {
+            size: 4in 10in;
+            margin: 0.5cm;
+        }
+        /* Con esto, la tabla queda con un ancho predeterminado y las líneas no se pueden superponer unas con otras, además ayuda a cambiar el tamaño de las celdas agregando el css adecuado. */
+        
+        table {
+            table-layout: fixed;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        /* Para que las palabras no se superpongan unas con otras */
+        
+        table td.detalle-d,
+        table td.detalle {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        /* Ancho de la boleta en la página completa */
+        
+        .boleta {
+            width: 3in;
+            height: 10in;
+        }
+        /* Espaciado en el título/*/
+        
+        table thead th {
+            padding: 7px;
+            font-size: 14px;
+        }
+        /* Borde de títulos, centrado del título */
+        
+        .border {
+            border: 3px solid black;
+            width: auto;
+            /* Margin-left sirve para centrar el título de la boleta */
+            margin-left: 15px;
+        }
+        /* Para cuadrar la sección de detalles */
+        
+        table thead td {
+            width: 25.3%;
+            text-align: center;
+        }
+        /* Para Cuadrar texto de iva y total */
+        
+        table tbody .totals {
+            text-align: left;
+        }
+        /* Para espaciar la boleta entre cada tbody */
+        
+        tbody:before {
+            /* Este arroba sirve para hacer el espaciado */
+            content: "@";
+            display: block;
+            line-height: 10px;
+            text-indent: -99999px;
+        }
+        /* Línea bajo el título Documentos de referencia */
+        
+        .underline {
+            border-bottom: 1px solid #000;
+            width: 70%;
+        }
+        /* Líneas de la sección de detalles */
+        
+        .outline {
+            border-bottom: 1px solid #000;
+            border-top: 1px solid #000;
+            font-size: 12px;
+        }
+        /* Separacion entre secciones de la boleta */
+        
+        #espaciado {
+            padding-top: 20px;
+            padding-bottom: 2px;
+        }
+        /* Espaciado debajo del documento folio dte */
+        
+        #folio {
+            padding-bottom: 30px;
+        }
+        /* Espaciado y líneas en la sección de Detalles */
+        
+        #overview {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            font-size: 12px;
+        }
+        /* Para mover el timbre y línea sobre él (Si necesita moverse hacia la derecha, padding-left) */
+        
+        #Timbre {
+            padding: 10px;
+            border-top: 1px solid #000;
+            /* padding-left: 25px; */
+        }
+        /* Alineamiendo de los totales */
+        
+        #totales {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="boleta">
+
+        <table>
+            <table class="border">
+                <!-- /////////////////////EMISOR/////////////////////////////////////// -->
+
+                <thead>
+
+                    <tr>
+                        <th colspan="4">RUT: @Model.Documento.Encabezado.Emisor.Rut</th>
+                    </tr>
+                    <tr>
+                        <th colspan="4">BOLETA ELECTRONICA</th>
+                    </tr>
+                    <tr>
+                        <th colspan="4">N° 123</th>
+                    </tr>
+
+            </table>
+            <table>
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="detalle" id="espaciado">
+                            <b>@Model.Documento.Encabezado.Emisor.RazonSocial</b>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="6" class="detalle">
+                            <small>@Model.Documento.Encabezado.Emisor.Giro</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="detalle">
+                            <small>Casa Matriz: @casaMatriz</small>
+                        </td>
+                    </tr>
+                </tbody>
+                <!-- ///////////////////////RECEPTOR/////////////////////////////////// -->
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="detalle" id="espaciado">
+                            <b>@Model.Documento.Encabezado.Receptor.RazonSocial</b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="detalle">
+                            <small>RUT: @Model.Documento.Encabezado.Receptor.Rut</small>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="6" class="detalle">
+                            <small>@Model.Documento.Encabezado.Receptor.Giro</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="detalle">
+                            <small>@Model.Documento.Encabezado.Receptor.CorreoElectronico</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="detalle">
+                            <small>@Model.Documento.Encabezado.Receptor.Direccion</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="detalle">
+                            <small>@Model.Documento.Encabezado.Receptor.Direccion</small>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="detalle">
+                            <small>@Model.Documento.Encabezado.Receptor.Ciudad</small>
+                        </td>
+                        <td colspan="3" class="detalle">
+                            <small>@Model.Documento.Encabezado.Receptor.Comuna</small>
+                        </td>
+                    </tr>
+                    <tr>
+
+                    </tr>
+                </tbody>
+                <!-- Fecha de emision en un tbody diferente, para el espaciado -->
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="detalle" id="espaciado">
+                            <b><small>Fecha de Emisión: @Model.Documento.Encabezado.IdentificacionDTE.FechaEmisionString</small></b>
+                        </td>
+                    </tr>
+                </tbody>
+                <!-- Documentos de referencia en un tbody diferente, para el espaciado -->
+                <tbody>
+                    <tr>
+                        <td class="underline" colspan="6" id="espaciado"><b>Documentos de Referencia</b></th>
+                    </tr>
+                    <td colspan="6" class="detalle" id="folio">
+                        <small>@Model.Documento.Encabezado.IdentificacionDTE.Folio</small
+              >
+            
+          </td>
+        </tbody>
+        </table>
+        <!-- ////////////////////////DETALLE///////////////////////////////// -->
+        <table>
+            <thead>
+          <tr>
+            <td class="outline"><b>Detalle</b></td>
+            <td class="outline"><b>Precio</b></td>
+            <td class="outline"><b>Cantidad</b></td>
+            <td class="outline"><b>Monto</b></td>
+          </tr>
+          <tr>
+            <td class="detalle-d" id="overview">
+              @Model.Documento.Encabezado.Emisor.RazonSocial
+            </td>
+            <td class="detalle-d"  id="overview">@detalle.Descripcion</td>
+            <td class="detalle-d"  id="overview">@detalle.Cantidad</td>
+            <td class="detalle-d"  id="overview">@detalle.MontoItem</td>
+          </tr>
+          </thead>
+        <!-- ////////////////////////TOTALES/////////////////////////////// -->
+        <tbody>
+                <tr>
+                    <td class="totals"><b>IVA:</b></td>
+                    <td class="detalle" id="totales" colspan="6">
+                        @Model.Documento.Encabezado.Totales.IVA
+                    </td>
+                </tr>
+                          <tr>
+            <td class="totals"><b>Total:</b></td>
+                <td colspan="6" class="detalle-d" id="totales">@Model.Documento.Encabezado.Totales.MontoTotal</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- FIN TABLA -->
+        <section id="Timbre">
+            <div>
+                <img src="data:image/bmp;base64, @timbreBase64" width="200" height="100" />
+            </div>
+            <div class="row">TIMBRE ELECTRÓNICO S.I.I.</div>
+            <div class="row">Res. @nroResol de @fechaResol</div>
+        </section>
+    </div>
+</body>
+
+</html>
